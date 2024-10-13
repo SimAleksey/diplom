@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <br>{{ form.title }}<br>
+        <br>{{ form.color }}<br>
+        <br>{{ form.description}}<br>
+        <br><p>Цена</p>{{ form.price }}<br>
+        <br><p>Скидка</p>{{ form.discount }}<br>
+        <br><p>Количество товара</p>{{ form.quantity }}<br>
+        <br><p>Категория</p>{{ form.category }}<br>
+        <br>{{ form.preview }}<br>
+        <button class="btn btn-success" type="submit">Добавить</button>
+    </form>
+    <div class="padding"></div>
+</div>
+{% endblock %}

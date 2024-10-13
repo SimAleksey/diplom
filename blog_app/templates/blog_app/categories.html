@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ category_title }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="category_title">{{ category_title }}</h1>
+</div>
+    <div class="sorted">
+        <ul>
+            <li><a href="{% url 'all_categories' %}">Все категории</a></li>
+            {% if request.GET.sort == 'title' %}
+                <li><a href="?sort=-title">По имени</a></li>
+            {% else %}
+                <li><a href="?sort=title">По имени</a></li>
+            {% endif %}
+            {% if request.GET.sort == 'shopping' %}
+                <li><a href="?sort=-shopping">По популярности</a></li>
+            {% else %}
+                <li><a href="?sort=shopping">По популярности</a></li>
+            {% endif %}
+            {% if request.GET.sort == 'price' %}
+                <li><a href="?sort=-price">По цене</a></li>
+            {% else %}
+                <li><a href="?sort=price">По цене</a></li>
+            {% endif %}
+            {% if request.GET.sort == 'quantity' %}
+            <li><a href="?sort=-quantity">По количеству</a></li>
+            {% else %}
+            <li><a href="?sort=quantity">По количеству</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+<div class="container">
+        <div class="row row-gap-4 categories">
+            {% if product %}
+        {% for i in product %}
+            <div class="col-3">{% include 'includes/_card.html' %}</div>
+        {% endfor %}
+            {% else %}
+            <div class="padding"></div>
+            <div class="padding"></div>
+            {% endif %}
+    </div>
+</div>
+
+{% endblock %}

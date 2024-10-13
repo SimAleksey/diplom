@@ -1,0 +1,14 @@
+{% load static %}
+
+<div class="card comment_card_body">
+  <div class="card-body">
+    <h5 class="card-title">{{ comment.author }}</h5>
+    {% if comment.author == product.producer %}
+    <h6 class="card-subtitle mb-2 text-body-secondary">Автор товара</h6>
+    {% else %}
+    <h6 class="card-subtitle mb-2 text-body-secondary">Пользователь</h6>
+    {% endif %}
+    <p class="card-text">{{ comment.text }}</p>
+    <a href="{% url 'feedback' product.pk %}" class="card-link comment_href">Подробнее</a>
+  </div>
+</div>

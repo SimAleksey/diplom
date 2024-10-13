@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Профиль: {{ user_obj.username }}
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <ul class="list-group list-group-action my-4">
+        <li class="list-group-item list-group-item-action"><b>Никнейм: </b>{{ user_obj.username }}</li>
+        <li class="list-group-item list-group-item-action"><b>Электронная почта: </b>{{ user_obj.email }}</li>
+        <li class="list-group-item list-group-item-action"><b>Имя: </b>{{ user_obj.firstname }}</li>
+        <li class="list-group-item list-group-item-action"><b>Всего товаров: </b>{{ total_product }}</li>
+        <li class="list-group-item list-group-item-action"><b>Всего комментариев: </b>{{ total_comments }}</li>
+        <li class="list-group-item list-group-item-action"><b>Всего продано: </b>{{ shopping }}</li>
+    </ul>
+        <div class="row row-gap-4 categories">
+        {% for i in product %}
+            <div class="col-3">{% include 'includes/_card.html' %}</div>
+        {% endfor %}
+    </div>
+    <div class="padding"></div>
+    {% if request.user.username == user_obj.username %}
+    <h2 class="text-center mb-3 comment_post"><a href="{% url 'create_product' %}">Создать Товар</a></h2>
+    {% endif %}
+    <div class="padding"></div>
+    <div class="padding"></div>
+</div>
+{% endblock %}

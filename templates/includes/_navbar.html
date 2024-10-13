@@ -1,0 +1,67 @@
+{% load static %}
+{% load blog_tags %}
+
+{% blog_categories as categories %}
+<header>
+    <span class="logo"><a href="{% url 'home' %}">proweb</a></span>
+    <div class="category">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                <i class="bi bi-list"></i>
+            </button>
+            <ul class="dropdown-menu">
+                {% for i in categories %}
+                <li><a class="dropdown-item" href="{% url 'category' i.slug %}">{{ i }}</a></li>
+                {% endfor %}
+                <li><a class="dropdown-item" href="{% url 'favorite_view' %}">Избранное</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <nav>
+        <ul>
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'storage' %}"><i class="bi bi-bag-check">корзина</i></a></li>
+            {% else %}
+            <li><a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-bag-check">корзина</i></a></li>
+            {% endif %}
+            {% if not request.user.is_authenticated %}
+            <li><a href="{% url 'login' %}">Войти</a></li>
+            {% endif %}
+            {% if request.user.is_authenticated %}
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    {{ request.user.username }}
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'profile' request.user.username %}">Профиль</a></li>
+                    <li><a class="dropdown-item" href="{% url 'registration' %}">Регистрация</a></li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
+                </ul>
+            </div>
+            {% endif %}
+        </ul>
+    </nav>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Упс!</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Зарегистрируйтесь, чтобы добавлять товары в Избранное и в Корзину
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        <a href="{% url 'login' %}">
+                            <button type="button" class="btn btn-primary">Войти</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

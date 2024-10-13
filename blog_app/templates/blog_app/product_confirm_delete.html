@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Подтверждение удаления
+{% endblock %}
+
+{% block content %}
+<div class="padding"></div>
+<div class="container">
+<form action="" method="post">
+    {% csrf_token %}
+        <h1>Вы действительно хотите удалить товар {{ product.title }}</h1>
+        <input type="submit" class="btn btn-danger" value="Да">
+        <a href="{% url 'detail' product.pk %}" class="btn btn-primary">Нет</a>
+
+</form>
+</div>
+<div class="padding"></div>
+<div class="padding"></div>
+{% endblock %}

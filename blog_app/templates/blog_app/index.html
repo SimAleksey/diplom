@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+market
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <form action="{% url 'search' %}" class="search">
+        <input type="search" type="text" name="q" placeholder="Поиск">
+        <button type="submit">Найти</button>
+    </form>
+    <div class="container">
+        <div class="the_body">
+            {% include 'includes/_slaide.html' %}
+        </div>
+    </div>
+    <div class="lent">
+        <ul>
+            <li><a href="{% url 'all_categories' %}">Все категории</a></li>
+            {% for el in category_line %}
+            <li><a href="{% url 'category' el.slug %}">{{ el }}</a></li>
+            {% endfor %}
+            <li><a href="{% url 'favorite_view' %}">Избранное</a></li>
+        </ul>
+    </div>
+    <div class="container content mt-5">
+        <div class="row row-gap-4 categories">
+            {% for i in product %}
+            <div class="col-3">{% include 'includes/_card.html' %}</div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,90 @@
+{% load static %}
+{% load blog_tags %}
+
+{% if request.user.is_authenticated %}
+{% blog_favorite request as favorite %}
+{% endif %}
+
+{% if request.user.is_authenticated %}
+{% blog_storage request as storage %}
+{% endif %}
+
+<div class="card">
+    {% if i.preview %}
+    <a href="{% url 'detail' i.pk %}"><img src="{{ i.preview.url }}" class="card-img-top product_img" alt="..."></a>
+    {% else %}
+    <a href="{% url 'detail' i.pk %}"><img src="{% static 'images/none.png' %}" class="card-img-top product_img"
+                                           alt="..."></a>
+    {% endif %}
+    <div class="card-body">
+        <p class="card-text">{{ i.title }}</p>
+        {% if i.discount %}
+            <b class="card-text">Цена: </b>
+            <del>{{ i.price }}</del>
+            <strong>{{ i.sell_price }}</strong> <b>Сум</b>
+            {% else %}
+            <b class="card-text">Цена: </b> {{ i.price }} <b>Сум</b>
+            {% endif %}
+
+            {% if request.user.is_authenticated %}
+            {% if i.pk in favorite.product %}
+            <a href="{% url 'remove_favorites' i.pk %}" class="heart_favorite_full"><i class="bi bi-heart-fill"></i></a>
+
+            {% else %}
+            <a href="{% url 'favorite' i.pk %}" class="heart_favorite"><i class="bi bi-heart"></i></a>
+            {% endif %}
+            {% else %}
+            <!-- Button trigger modal -->
+            <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal" class="heart_favorite"><i
+                    class="bi bi-heart"></i></a>
+
+            {% endif %}
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Упс!</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Зарегистрируйтесь, чтобы добавлять товары в Избранное и в Корзину
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <a href="{% url 'login' %}">
+                                <button type="button" class="btn btn-primary">Войти</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+<br>
+{% if request.user.is_authenticated %}
+{% if i in storage  %}
+<a href="{% url 'storage' %}">
+    <button type="button" class="btn costume_btn basket">Товар в корзине</button>
+</a>
+{% else %}
+{% if i.quantity != 0 %}
+<a href="{% url 'storage_add' i.pk %}">
+    <button type="button" class="btn costume_btn basket">Добавить в корзину</button>
+</a>
+{% else %}
+<b class="basket none">Товар не доступен</b>
+{% endif %}
+{% endif %}
+{% else %}
+{% if i.quantity != 0 %}
+<button type="button" class="btn costume_btn basket" data-bs-toggle="modal" data-bs-target="#exampleModal">Добавить в
+    корзину
+</button>
+{% else %}
+<b class="basket none">Товар не доступен</b>
+{% endif %}
+
+{% endif %}

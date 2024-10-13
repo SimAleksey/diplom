@@ -1,0 +1,37 @@
+from . import views
+from django.urls import path
+
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('FAQ/', views.faq, name='FAQ'),
+    path('storage/', views.storage, name='storage'),
+    path('categories', views.all_categories, name='all_categories'),
+    path('categories/<slug:slug>/', views.category_view, name='category'),
+    path('detail/<int:pk>/', views.product_detail, name='detail'),
+    path('product/<int:pk>/', views.ProductUpdate.as_view(), name='update_product'),
+    path('color_detail/<int:pk>', views.color_detail, name='color_detail'),
+    path('color/<int:pk>/', views.ColorUpdate.as_view(), name='update_color'),
+    path('feedback/<int:pk>/', views.feedback_product, name='feedback'),
+    path('login/', views.login_view, name='login'),
+    path('registration/', views.registration_view, name='registration'),
+    path('logout/', views.user_logout, name='logout'),
+    path('create_color/<int:pk>', views.create_color, name='create_color'),
+    path('create_product', views.create_product, name='create_product'),
+    path('profile/<str:username>/', views.profile, name='profile'),
+    path('product/<int:pk>/delete/', views.ProductDelete.as_view(), name='delete_product'),
+    path('color/<int:pk>/delete/', views.ColorDelete.as_view(), name='delete_color'),
+    path('search/', views.search, name='search'),
+    path('favorite/<int:pk>/', views.favorite, name='favorite'),
+    path('remove_favorites/<int:pk>', views.remove_favorite, name='remove_favorites'),
+    path('favorite_category/', views.favorites_view, name='favorite_view'),
+    path('storage_add/<int:pk>', views.storage_add, name='storage_add'),
+    path('storage_add_color/<int:pk>', views.storage_add_color, name='storage_add_color'),
+    path('storage_delete/', views.storage_delete, name='storage_delete'),
+    path('storage_product_plus/<int:pk>', views.storage_product_plus, name='storage_product_plus'),
+    path('storage_product_minus/<int:pk>', views.storage_product_minus, name='storage_product_minus'),
+    path('storage_product_color_plus/<int:pk>', views.storage_product_color_plus, name='storage_product_color_plus'),
+    path('storage_product_color_minus/<int:pk>', views.storage_product_color_minus, name='storage_product_color_minus'),
+    path('storage_product_trash/<int:pk>', views.storage_product_trash, name='storage_product_trash'),
+    path('storage_color_trash/<int:pk>', views.storage_color_trash, name='storage_color_trash'),
+    path('buy/', views.buy, name='buy')
+]

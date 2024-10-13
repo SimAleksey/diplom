@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Подтверждение удаления
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<form action="" method="post">
+    {% csrf_token %}
+    <p>вы действительно хотите удалить товар <b>{{ color.title }}</b>
+        <input type="submit" class="btn btn-danger" value="Да">
+        <a href="{% url 'color_detail' color.pk %}" class="btn btn-primary">Нет</a>
+
+</form>
+</div>
+{% endblock %}

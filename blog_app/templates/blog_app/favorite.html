@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Избранное
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="category_title">{{ category_title }}</h1>
+    <div class="row row-gap-4 categories">
+        {% if product %}
+        {% for i in product %}
+        <div class="col-3">{% include 'includes/_card.html' %}</div>
+        {% endfor %}
+        {% else %}
+        {% if request.user.is_authenticated %}
+        <h1 class="favorite_text">Тут пока ничего нет</h1>
+        {% else %}
+        <h1>Зарегистрируйтесь, чтобы добавлять товары в избранное</h1>
+        <a href="{% url 'login' %}" class="favorite_text"><button type="button" class="btn costume_btn">Войти</button></a>
+        {% endif %}
+        <div class="padding"></div>
+        <div class="padding"></div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

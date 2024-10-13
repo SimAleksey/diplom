@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{{ product }}
+{% endblock %}
+
+
+
+{% block content %}
+<div class="container">
+    <div class="product_page">
+        <ul>
+            <a href="{% url 'home' %}">Главная</a>
+            <li>/</li>
+            <a href="{% url 'category' product.category.slug %}">{{ product.category }}</a>
+            <li>/</li>
+            <a href="{% url 'profile' product.producer %}">{{ product.producer }}</a>
+            {% if request.user == product.producer %}
+            <a href="{% url 'create_color' product.pk %}" class="btn">Добавить цвета</a>
+            <a href="{% url 'update_product' product.pk %}" class="btn">Изменить</a>
+            <a href="{% url 'delete_product' product.pk %}" class="btn">Удалить</a>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="product">
+        {% if product.preview %}
+        <img src="{{ product.preview.url }}" alt="">
+        {% else %}
+        <img src="{% static 'images/none.png' %}" class="card-img-top product_img" alt="...">
+        {% endif %}
+        <div class="product_header">
+            <h1>{{ product.title }}</h1>
+            <p>Производитель: {{ product.producer }}</p>
+            <p>Покупок: {{ product.shopping }}</p>
+            <p>Цвет: {{ product.color }}</p>
+            <h1>Описание товара</h1>
+            <p>{{ product.description }}</p>
+
+        </div>
+        <div class="product_bottom">
+            <ul>
+                {% if product.discount %}
+                <h3>
+                    <del><small>{{ product.price }}</small></del>
+                    {{ product.sell_price }} Сум
+                </h3>
+                {% else %}
+                <h3>{{ product.price }} Сум</h3>
+                {% endif %}
+
+                {% if product in storage1 %}
+                <a href="{% url 'storage' %}"><button type="button" class="btn costume_btn basket">Товар в корзине</button></a>
+                {% else %}
+                {% if product.quantity != 0 %}
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'storage_add' product.pk %}"><button type="button" class="btn costume_btn">Добавить в корзину</button></a>
+                {% else %}
+                <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal"><button type="button" class="btn costume_btn">Добавить в корзину</button></a>
+                {% endif %}
+                {% else %}
+                <b class="none l_2">Товар не доступен</b>
+                {% endif %}
+                {% endif %}
+            </ul>
+        </div>
+        <h3 class="color_title">Цвета</h3>
+        <ul class="color_line">
+            {% for el in color %}
+            <a href="{% url 'color_detail' el.pk %}" class="color_href">{{ el.color }}</a>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+
+</div>
+<div class="mt-4">
+    <a href="{% url 'feedback' product.pk %}" class="none_href"><h2 class="text-center mb-3">Отзывы</h2></a>
+    <div class="comment">
+        <ul>
+            {% for comment in comments %}
+            {% include 'includes/_comment.html' %}
+            {% endfor %}
+        </ul>
+    </div>
+    <h2 class="text-center mb-3 comment_post"><a href="{% url 'feedback' product.pk %}">Оставить отзыв</a></h2>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Упс!</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Зарегистрируйтесь, чтобы добавлять товары в Избранное и в Корзину
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <a href="{% url 'login' %}">
+                                <button type="button" class="btn btn-primary">Войти</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{% endblock %}

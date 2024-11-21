@@ -30,6 +30,9 @@
                 {% else %}
                 <footer class="blockquote-footer"><cite title="Source Title">Пользователь</cite></footer>
                 {% endif %}
+                {% if request.user == comment.author %}
+                <a href="{% url 'comment_delete' comment.pk %}" class="comment-operation">Удалить</a>
+                {% endif %}
             </blockquote>
         </div>
     </div>

@@ -320,9 +320,10 @@ def favorites_view(request):
 def storage_add(request, pk):
     product = Product.objects.get(pk=pk)
     storage_product = Storage.objects.filter(user=request.user, product=product)
-
+    print(storage_product)
     if storage_product:
       storage_product = storage_product.first()
+      print(storage_product)
       if storage_product:
           storage_product.quantity += 1
           storage_product.save()
@@ -385,7 +386,7 @@ def storage_product_plus(request, pk):
 def storage_product_minus(request, pk):
     product = Product.objects.get(pk=pk)
     storage_product = Storage.objects.get(product=product, user=request.user)
-    if storage_product.quantity == 0:
+    if storage_product.quantity <= 1:
         storage_product.delete()
     else:
         product.quantity += 1
@@ -452,3 +453,9 @@ def buy(request):
             i.product_color.save(update_fields=['shopping'])
             i.delete()
     return redirect('storage')
+
+
+def comment_delete(request, pk):
+    comment = Comment.objects.get(pk=pk)
+    comment.delete()
+    return redirect(request.META['HTTP_REFERER'])

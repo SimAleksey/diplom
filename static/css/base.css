@@ -14,6 +14,7 @@ body {
 header {
         background: #fffff7;
         padding: 30px 0;
+        box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 }
 
 .container {
@@ -32,6 +33,7 @@ nav {
     margin-top: -35px;
     float: right;
     width: 20%;
+
 
 }
 
@@ -100,6 +102,7 @@ nav ul li:hover, nav ul a:hover {
     background: #fffff7;
     margin-top: 40px;
     padding: 5px 0;
+    box-shadow: 3px 0px 8px 0px rgba(34, 60, 80, 0.2);
 }
 
 .lent ul {
@@ -134,7 +137,7 @@ nav ul li:hover, nav ul a:hover {
 .padding {
     padding: 100px;
 }
-footer {
+footer-html {
     margin-top: 80px;
     padding: 70px 0;
     background: #fffff7;;
@@ -143,14 +146,15 @@ footer {
     position: absolute;
     bottom: 0;
     left: 0;
+    box-shadow: 3px -5px 8px 2px rgba(34, 60, 80, 0.2);
 }
 
-footer div {
+footer-html div {
     margin-left: 300px;
     width: 250px;
     padding: 0 20px;
 }
-footer div li {
+footer-html div li {
     padding: 5px 0;
 }
 
@@ -165,6 +169,7 @@ footer div li {
     width: 825px;
     height: 520px;
     border: 5px solid #fff;
+    box-shadow: 3px 0px 8px 2px rgba(34, 60, 80, 0.2);
 }
 
 .d-block {
@@ -178,7 +183,9 @@ footer div li {
 
 .sorted {
     margin-top: 50px;
+    box-shadow: 3px 0px 8px 2px rgba(34, 60, 80, 0.2);
 }
+
 
 .sorted ul{
     border: 5px solid #fff;
@@ -266,6 +273,15 @@ footer div li {
     width: 1700px;
     display: flex;
     justify-content: space-between;
+}
+
+.card {
+    box-shadow: 3px 0px 8px 6px rgba(34, 60, 80, 0.2);
+}
+
+.comment-operation {
+    text-decoration: none;
+    color: gray;
 }
 
 .comment_card_body {

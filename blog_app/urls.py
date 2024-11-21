@@ -33,5 +33,6 @@ urlpatterns = [
     path('storage_product_color_minus/<int:pk>', views.storage_product_color_minus, name='storage_product_color_minus'),
     path('storage_product_trash/<int:pk>', views.storage_product_trash, name='storage_product_trash'),
     path('storage_color_trash/<int:pk>', views.storage_color_trash, name='storage_color_trash'),
-    path('buy/', views.buy, name='buy')
+    path('buy/', views.buy, name='buy'),
+    path('delete_comment/<int:pk>', views.comment_delete, name='comment_delete')
 ]
